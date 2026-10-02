@@ -1,15 +1,21 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "../styles/navbar.css";
 
 function Navbar() {
   const { user, logout } = useAuth();
+  const [logoutError, setLogoutError] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
 
   const handleLogout = async () => {
     try {
+      setLogoutError("");
       await logout();
     } catch (error) {
-      console.error(error.message);
+      setLogoutError(error.message || "Logout failed. Please try again.");
     }
   };
 
@@ -17,15 +23,57 @@ function Navbar() {
     <header className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
+          <img
+            src="/logo.png"
+            alt="Shivcart logo"
+            className="navbar-logo-image"
+          />
           Shiv<span>cart</span>
         </Link>
 
-        <nav className="navbar-links">
-          <Link to="/">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/cart">Cart</Link>
-          {user?.role === "admin" && <Link to="/admin">Dashboard</Link>}
-          {user && <Link to="/orders">Orders</Link>}
+        <button
+          type="button"
+          className="navbar-menu-toggle"
+          aria-label={
+            menuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav
+          id="primary-navigation"
+          className={`navbar-links${menuOpen ? " is-open" : ""}`}
+        >
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
+          <Link to="/products" onClick={closeMenu}>
+            Products
+          </Link>
+          <Link to="/cart" onClick={closeMenu}>
+            Cart
+          </Link>
+          {user?.role === "admin" && (
+            <Link to="/admin" onClick={closeMenu}>
+              Dashboard
+            </Link>
+          )}
+          {user && (
+            <Link to="/orders" onClick={closeMenu}>
+              Orders
+            </Link>
+          )}
+          {user && (
+            <Link to="/profile" onClick={closeMenu}>
+              Profile
+            </Link>
+          )}
         </nav>
 
         <div className="navbar-actions">
@@ -50,6 +98,8 @@ function Navbar() {
           )}
         </div>
       </div>
+
+      {logoutError && <div className="navbar-error">{logoutError}</div>}
     </header>
   );
 }

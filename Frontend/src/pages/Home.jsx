@@ -1,7 +1,33 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ErrorMessage from "../components/ErrorMessage";
+import ProductCard from "../components/ProductCard";
+import { getAllProducts } from "../services/productService";
 import "../styles/home.css";
 
 function Home() {
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [productsError, setProductsError] = useState("");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setProductsError("");
+        const data = await getAllProducts();
+        setProducts(
+          data.filter((product) => product.status !== "inactive").slice(0, 4),
+        );
+      } catch (error) {
+        setProductsError(error.message || "Failed to load products.");
+      } finally {
+        setLoadingProducts(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <main className="home">
       <section className="hero">
@@ -22,6 +48,35 @@ function Home() {
             Shop Now
           </Link>
         </div>
+      </section>
+
+      <section className="home-products">
+        <div className="home-products-header">
+          <div>
+            <p className="home-products-eyebrow">SHOP THE COLLECTION</p>
+            <h2>Featured Products</h2>
+          </div>
+          <Link to="/products" className="home-products-link">
+            View all products
+          </Link>
+        </div>
+
+        {productsError && <ErrorMessage message={productsError} />}
+        {loadingProducts && (
+          <p className="home-products-state">Loading products...</p>
+        )}
+        {!loadingProducts && !productsError && products.length === 0 && (
+          <p className="home-products-state">
+            No products are available right now.
+          </p>
+        )}
+        {!loadingProducts && !productsError && products.length > 0 && (
+          <div className="home-products-grid">
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="home-features">

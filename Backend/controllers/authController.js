@@ -18,7 +18,7 @@ const setAuthCookie = (res, token) => {
 };
 
 const registerUser = async (req, res) => {
-  const { name, email, password, otp } = req.body;
+  const { name, email, password, role, otp } = req.body;
 
   try {
     if (!name || !email || !password) {
@@ -32,6 +32,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    const selectedRole = role === "admin" ? "admin" : "user";
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -39,7 +40,7 @@ const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: "user",
+      role: selectedRole,
       otp,
     });
 

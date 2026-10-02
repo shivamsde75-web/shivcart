@@ -8,6 +8,7 @@ import VerifyOTP from "./pages/VerifyOTP";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
 
 // Protected pages
 import Checkout from "./pages/Checkout";
@@ -57,6 +58,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/orders" element={<Orders />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
         {/* ==================== ADMIN ROUTES ==================== */}

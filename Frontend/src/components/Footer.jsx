@@ -29,8 +29,8 @@ function Footer() {
 
         <div className="footer-section">
           <h3>Contact</h3>
-          <p>Email: support@shivcart.com</p>
-          <p>Phone: +91 00000 00000</p>
+          <p>Email: shivam.sde@gmail.com</p>
+          <p>Phone: +91 7505423113</p>
           <p>India</p>
         </div>
       </div>

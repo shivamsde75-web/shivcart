@@ -12,6 +12,7 @@ function Register() {
     name: "",
     email: "",
     password: "",
+    role: "user",
   });
 
   const [loading, setLoading] = useState(false);
@@ -44,6 +45,7 @@ function Register() {
           name: formData.name,
           email: formData.email,
           password: formData.password,
+          role: formData.role,
         }),
       });
 
@@ -119,6 +121,20 @@ function Register() {
                 placeholder="Enter your password"
                 required
               />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="role">Role</label>
+
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
 
             <button type="submit" className="auth-btn" disabled={loading}>

@@ -112,3 +112,19 @@
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .admin-orders-page {
+    padding: 1.25rem 0.75rem 2rem;
+  }
+
+  .admin-orders-container {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .back-to-dashboard-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

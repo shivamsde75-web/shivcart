@@ -154,3 +154,18 @@
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .admin-products-page {
+    padding: 1.25rem 0.75rem 2rem;
+  }
+
+  .admin-products-container {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .add-product-btn {
+    width: 100%;
+  }
+}
