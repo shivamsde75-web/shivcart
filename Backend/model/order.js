@@ -12,18 +12,15 @@ const orderSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    paymentId: {
-      type: String,
-    },
-    cashOnDelivery: {
-      type: Boolean,
-      default: false,
+    quantity: {
+      type: Number,
       required: true,
+      default: 1,
     },
-
     totalPrice: {
       type: Number,
       required: true,
+      default: 0,
     },
     status: {
       type: String,

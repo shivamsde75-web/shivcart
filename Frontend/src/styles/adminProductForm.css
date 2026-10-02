@@ -1,0 +1,141 @@
+.admin-product-form-page {
+  padding: 2rem 1.5rem 3rem;
+  background: #f8f9fb;
+  min-height: calc(100vh - 120px);
+}
+
+.admin-product-form-container {
+  max-width: 840px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.08);
+  padding: 2rem;
+}
+
+.admin-product-form-header {
+  margin-bottom: 1.5rem;
+}
+
+.admin-product-form-header h1 {
+  margin: 0 0 0.4rem;
+  color: #111827;
+  font-size: clamp(2rem, 3vw, 2.7rem);
+}
+
+.admin-product-form-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.admin-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  background: #fff;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.12);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.admin-product-form-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.cancel-btn,
+.create-product-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+}
+
+.create-product-btn {
+  background: #f97316;
+  color: #fff;
+}
+
+.create-product-btn:hover {
+  background: #ea580c;
+}
+
+@media (max-width: 640px) {
+  .admin-product-form-container {
+    padding: 1.25rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-btn,
+  .create-product-btn {
+    width: 100%;
+  }
+}

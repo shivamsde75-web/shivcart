@@ -26,50 +26,56 @@ const getProductById = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const { name, price, description, category, stock } = req.body;
+    const { name, price, description, category, stock, status } = req.body;
 
     let imageURL = "";
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path);
-
       imageURL = result.secure_url;
     }
+
     const newProduct = await product.create({
       name,
-      price,
+      price: Number(price),
       description,
       category,
-      stock,
+      stock: Number(stock),
+      status: status === "inactive" ? "inactive" : "active",
       imageURL,
     });
-    res.status(201).json(newProduct);
+
+    return res.status(201).json(newProduct);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
 const updateProduct = async (req, res) => {
   try {
-    const { name, price, description, category, stock } = req.body;
+    const { name, price, description, category, stock, status } = req.body;
     const productId = req.params.id;
-    const Product = await product.findByIdAndUpdate(productId);
-    if (!Product) {
+    const foundProduct = await product.findById(productId);
+
+    if (!foundProduct) {
       return res.status(404).json({ message: "Product not found" });
     }
-    Product.name = name || Product.name;
-    Product.price = price || Product.price;
-    Product.description = description || Product.description;
-    Product.category = category || Product.category;
-    Product.stock = stock || Product.stock;
+
+    foundProduct.name = name || foundProduct.name;
+    foundProduct.price = Number(price) || foundProduct.price;
+    foundProduct.description = description || foundProduct.description;
+    foundProduct.category = category || foundProduct.category;
+    foundProduct.stock = Number(stock) || foundProduct.stock;
+    foundProduct.status = status === "inactive" ? "inactive" : "active";
+
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path);
-      updatedProduct.imageURL = result.secure_url;
+      foundProduct.imageURL = result.secure_url;
     }
 
-    await Product.save();
-    res.status(200).json(Product);
+    await foundProduct.save();
+    return res.status(200).json(foundProduct);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 

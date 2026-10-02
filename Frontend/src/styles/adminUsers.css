@@ -1,0 +1,116 @@
+.admin-users-page {
+  padding: 2rem 1.5rem 3rem;
+  background: #f8f9fb;
+  min-height: calc(100vh - 120px);
+}
+
+.admin-users-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.08);
+  padding: 1.5rem;
+}
+
+.admin-users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-users-header h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: #111827;
+}
+
+.admin-users-header p {
+  margin: 0.35rem 0 0;
+  color: #6b7280;
+}
+
+.back-to-dashboard-btn {
+  background: #111827;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-to-dashboard-btn:hover {
+  background: #1f2937;
+}
+
+.admin-users-table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  padding: 0.9rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-users-table th {
+  background: #f8fafc;
+  color: #374151;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.role-badge,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.role-badge.admin {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.role-badge.user {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-badge.verified {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.no-users {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #374151;
+}
+
+@media (max-width: 640px) {
+  .admin-users-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

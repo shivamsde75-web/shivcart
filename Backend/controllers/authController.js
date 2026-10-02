@@ -2,14 +2,23 @@ const User = require("../model/user.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
- 
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: process.env.NODE_ENV === "production",
+  path: "/",
+};
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
+const setAuthCookie = (res, token) => {
+  res.cookie("token", token, cookieOptions);
+};
+
 const registerUser = async (req, res) => {
-  const { name, email, password, role, otp } = req.body;
+  const { name, email, password, otp } = req.body;
 
   try {
     if (!name || !email || !password) {
@@ -30,20 +39,24 @@ const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role,
+      role: "user",
       otp,
     });
 
     const token = generateToken(newUser._id);
-    res.cookie("token", token);
+    setAuthCookie(res, token);
 
-    return res.status(201).json({
+    const userResponse = {
       id: newUser._id,
       name: newUser.name,
       email: newUser.email,
       otp: newUser.otp,
       role: newUser.role,
       verified: newUser.verified,
+    };
+
+    return res.status(201).json({
+      user: userResponse,
       message: "User registered successfully.",
     });
   } catch (error) {
@@ -66,14 +79,18 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
     const token = generateToken(user._id);
-    res.cookie("token", token);
+    setAuthCookie(res, token);
 
-    return res.json({
+    const userResponse = {
       id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
       verified: user.verified,
+    };
+
+    return res.json({
+      user: userResponse,
       message: "User logged in successfully",
     });
   } catch (error) {
@@ -92,8 +109,16 @@ const getAllUsers = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", { ...cookieOptions });
   return res.json({ message: "User logged out successfully" });
+};
+const me = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    return res.json({ user: user ? user.toObject() : null });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = {
@@ -101,4 +126,5 @@ module.exports = {
   loginUser,
   getAllUsers,
   logoutUser,
+  me,
 };

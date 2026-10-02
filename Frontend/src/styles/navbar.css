@@ -1,0 +1,169 @@
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  min-height: 70px;
+  margin: auto;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Logo */
+
+.navbar-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -1px;
+}
+
+.navbar-logo span {
+  color: #f97316;
+}
+
+/* Navigation */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar-links a {
+  color: #374151;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.2s;
+  position: relative;
+}
+
+.navbar-links a:hover {
+  color: #f97316;
+}
+
+.navbar-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 0;
+  height: 2px;
+  background: #f97316;
+  transition: 0.2s;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* Buttons */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-btn,
+.register-btn {
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.login-btn {
+  color: #f97316;
+  border: 1px solid #f97316;
+}
+
+.login-btn:hover {
+  background: #fff7ed;
+}
+
+.register-btn {
+  color: #ffffff;
+  background: #f97316;
+  border: 1px solid #f97316;
+}
+
+.register-btn:hover {
+  background: #ea580c;
+  border-color: #ea580c;
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 15px 20px;
+  }
+
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .navbar-container {
+    gap: 15px;
+  }
+
+  .navbar-logo {
+    font-size: 24px;
+  }
+
+  .navbar-links {
+    gap: 14px;
+  }
+
+  .navbar-links a {
+    font-size: 13px;
+  }
+
+  .navbar-actions {
+    gap: 6px;
+  }
+
+  .login-btn,
+  .register-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+.navbar-user {
+  font-weight: 600;
+  color: #333;
+}
+
+.logout-btn {
+  border: none;
+  background: #222;
+  color: white;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #444;
+}

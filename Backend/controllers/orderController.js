@@ -1,18 +1,29 @@
 const Order = require("../model/order.js");
+const Product = require("../model/product.js");
 const sendMail = require("../utils/sendEmail.js");
 
 const createOrder = async (req, res) => {
   try {
-    const { totalPrice, address,paymentId,cashOnDelivery } = req.body;
+    const { address, quantity } = req.body;
     const userId = req.user._id;
     const itemId = req.params.id;
+
+    const product = await Product.findById(itemId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const orderQuantity = Number(quantity) || 1;
+    const productPrice = Number(product.price) || 0;
+    const totalPrice = productPrice * orderQuantity;
+
     const order = await Order.create({
       itemId,
-      totalPrice,
       address,
       userId,
-      paymentId,
-      cashOnDelivery,
+      quantity: orderQuantity,
+      totalPrice,
     });
 
     const massage = ` 
@@ -56,7 +67,7 @@ const getAllOrders = async (req, res) => {
 
 const updateOrderStatus = async (req, res) => {
   try {
-    const  status  = req.params.status;
+    const status = req.params.status;
     const order = await Order.findById(req.params.id);
     if (order) {
       order.status = status;

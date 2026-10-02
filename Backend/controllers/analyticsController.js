@@ -6,12 +6,12 @@ const getAdminStats = async (req, res) => {
   try {
     const totalOrders = await Order.countDocuments({});
     const totalProducts = await Product.countDocuments({});
-    const totalUsers = await User.countDocuments({ role: "user" });
+    const totalUsers = await User.countDocuments({});
 
     const order = await Order.find({});
 
-    const toalRevenueData = order.reduce(
-      (acc, order) => acc + order.totalPrice,
+    const totalRevenueData = order.reduce(
+      (acc, currentOrder) => acc + (Number(currentOrder.totalPrice) || 0),
       0,
     );
 
@@ -19,7 +19,7 @@ const getAdminStats = async (req, res) => {
       totalOrders,
       totalProducts,
       totalUsers,
-      totalRevenue: toalRevenueData,
+      totalRevenue: totalRevenueData,
     });
   } catch (error) {
     console.error(error);
