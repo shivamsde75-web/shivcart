@@ -7,13 +7,15 @@ const connectDB = require("./config/db");
 dotenv.config();
 connectDB();
 const app = express();
+const isProduction = process.env.NODE_ENV?.toLowerCase() === "production";
 
 const allowedOrigins = [
+  "https://shivcart.vercel.app",
   ...(process.env.CLIENT_URL || "")
     .split(",")
     .map((origin) => origin.trim().replace(/\/+$/, ""))
     .filter(Boolean),
-  ...(process.env.NODE_ENV === "production" ? [] : ["http://localhost:5173"]),
+  ...(!isProduction ? ["http://localhost:5173"] : []),
 ];
 
 app.use(
