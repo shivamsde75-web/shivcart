@@ -9,8 +9,8 @@ connectDB();
 const app = express();
 
 const allowedOrigins = [
-  "https://shivcart.vercel.app",
-  ...(process.env.NODE_ENV === "production" ? [] : ["http://localhost:5173"]),
+  process.env.CLIENT_URL,
+  ...(process.env.NODE_ENV === "Production" ? [] : ["http://localhost:5173"]),
   ...(process.env.CLIENT_URL || "")
     .split(",")
     .map((origin) => origin.trim())
