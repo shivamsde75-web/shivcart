@@ -23,7 +23,7 @@ function Orders() {
           orderData.map(async (order) => {
             try {
               const product = await getProductById(order.itemId);
-
+              console.log("Product:", product);
               return {
                 ...order,
                 product,

@@ -26,13 +26,14 @@ function Checkout() {
       setLoading(true);
       setError("");
 
-      // Create an order for each cart item
-      for (const item of cartItems) {
-        await createOrder(item._id, {
-          quantity: item.quantity,
-          address,
-        });
-      }
+      await Promise.all(
+        cartItems.map((item) =>
+          createOrder(item._id, {
+            quantity: item.quantity,
+            address,
+          }),
+        ),
+      );
 
       clearCart();
 

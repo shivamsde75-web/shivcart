@@ -9,7 +9,7 @@ const createOrder = async (req, res) => {
     const itemId = req.params.id;
 
     const product = await Product.findById(itemId);
-
+    console.log("Product:", product);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -36,7 +36,7 @@ const createOrder = async (req, res) => {
 
       Thank you for choosing ShivCart.
       `;
-    await sendMail(req.user.email, "Order placed", massage);
+    sendMail(req.user.email, "Order placed", massage);
     return res.json({ message: "Order created successfully", order });
   } catch (error) {
     console.error(error);
