@@ -9,12 +9,11 @@ connectDB();
 const app = express();
 
 const allowedOrigins = [
-  process.env.CLIENT_URL,
-  ...(process.env.NODE_ENV === "Production" ? [] : ["http://localhost:5173"]),
   ...(process.env.CLIENT_URL || "")
     .split(",")
-    .map((origin) => origin.trim())
+    .map((origin) => origin.trim().replace(/\/+$/, ""))
     .filter(Boolean),
+  ...(process.env.NODE_ENV === "production" ? [] : ["http://localhost:5173"]),
 ];
 
 app.use(
