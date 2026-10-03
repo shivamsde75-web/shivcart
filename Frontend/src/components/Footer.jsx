@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/footer.css";
 
 function Footer() {
@@ -14,17 +15,17 @@ function Footer() {
 
         <div className="footer-section">
           <h3>Quick Links</h3>
-          <a href="/">Home</a>
-          <a href="/products">Products</a>
-          <a href="/cart">Cart</a>
-          <a href="/orders">Orders</a>
+          <Link to="/">Home</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/cart">Cart</Link>
+          <Link to="/orders">Orders</Link>
         </div>
 
         <div className="footer-section">
           <h3>Account</h3>
-          <a href="/login">Login</a>
-          <a href="/register">Register</a>
-          <a href="/profile">My Profile</a>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+          <Link to="/profile">My Profile</Link>
         </div>
 
         <div className="footer-section">

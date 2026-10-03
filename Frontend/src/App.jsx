@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 // Public pages
 import Home from "./pages/Home";
@@ -71,6 +71,17 @@ function App() {
           <Route path="/admin/products/create" element={<CreateProduct />} />
           <Route path="/admin/products/edit/:id" element={<EditProduct />} />
         </Route>
+
+        <Route
+          path="*"
+          element={
+            <main className="not-found-page">
+              <h1>Page not found</h1>
+              <p>The page you requested does not exist.</p>
+              <Link to="/">Return home</Link>
+            </main>
+          }
+        />
       </Routes>
 
       <Footer />
