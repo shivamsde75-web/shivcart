@@ -9,7 +9,7 @@ const createOrder = async (req, res) => {
     const itemId = req.params.id;
 
     const product = await Product.findById(itemId);
-    console.log("Product:", product);
+
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
