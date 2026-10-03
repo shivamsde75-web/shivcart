@@ -39,5 +39,5 @@ app.use("/api/analytics", require("./routes/analyticsRoutes.js"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  // Server started
+  console.log(`Server running on port ${PORT}`);
 });
