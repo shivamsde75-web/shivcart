@@ -43,6 +43,4 @@ app.use("/api/orders", require("./routes/orderRoutes.js"));
 app.use("/api/analytics", require("./routes/analyticsRoutes.js"));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT);

@@ -39,8 +39,9 @@ const createOrder = async (req, res) => {
     sendMail(req.user.email, "Order placed", massage);
     return res.json({ message: "Order created successfully", order });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ message: "Internal server error" }, error.message);
   }
 };
 
@@ -50,8 +51,9 @@ const getMyOrders = async (req, res) => {
     const orders = await Order.find({ userId: userId });
     return res.json(orders);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ message: "Internal server error" }, error.message);
   }
 };
 
@@ -60,8 +62,9 @@ const getAllOrders = async (req, res) => {
     const orders = await Order.find({});
     return res.json(orders);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ message: "Internal server error" }, error.message);
   }
 };
 
@@ -77,8 +80,9 @@ const updateOrderStatus = async (req, res) => {
       res.status(404).json({ message: "Order not found" });
     }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ message: "Internal server error" }, error.message);
   }
 };
 
@@ -87,8 +91,9 @@ const deleteOrder = async (req, res) => {
     await Order.findByIdAndDelete(req.params.id);
     res.json({ message: "Order deleted successfully" });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ message: "Internal server error" }, error.message);
   }
 };
 
